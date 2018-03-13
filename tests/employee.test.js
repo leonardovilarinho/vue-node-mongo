@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const request = require('supertest')
-const app = require('../../server/app')
+const app = require('../server/app')
 
 beforeAll(done => mongoose.connect(process.env.DB_TEST_PATH, done))
 afterAll(done => mongoose.connection.dropDatabase(done))

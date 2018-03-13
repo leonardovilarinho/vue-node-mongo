@@ -2,16 +2,22 @@
 
 > Desafio
 
-## Build Setup
+## Para executar
 
 ``` bash
-# install dependencies
+# instalar dependências
 npm install
 
-# serve with hot reload at localhost:8080
+# iniciar servidor node
+npm run server
+
+# executar testes automatizados da API
+npm run test
+
+# executar em ambiende de desenvolvimento em localhost:8080
 npm run dev
 
-# build for production with minification
+# compilar e minificar
 npm run build
 ```
 
