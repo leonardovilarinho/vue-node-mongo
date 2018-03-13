@@ -86,6 +86,17 @@ describe('Test employees features', () => {
     expect(data.error).toContain('0 e 100')
   })
 
+  test('List employees without employees', async () => {
+    const { text, statusCode } = await request(app).get('/employees')
+
+    expect(statusCode).toBe(200)
+
+    const data = JSON.parse(text)
+    expect(data.error).toBeFalsy()
+    expect(data).toHaveProperty('employees')
+    expect(data.employees.length).toBe(0)
+  })
+
   test('Create an employee', async () => {
     const employee = { name: 'Leonardo', lastname: 'Vilarinho', participation: 20 }
     const { text, statusCode } = await request(app).post('/employees').send(employee)
@@ -94,5 +105,16 @@ describe('Test employees features', () => {
 
     const data = JSON.parse(text)
     expect(data.error).toBeFalsy()
+  })
+
+  test('List employees with a employee', async () => {
+    const { text, statusCode } = await request(app).get('/employees')
+
+    expect(statusCode).toBe(200)
+
+    const data = JSON.parse(text)
+    expect(data.error).toBeFalsy()
+    expect(data).toHaveProperty('employees')
+    expect(data.employees.length).toBe(1)
   })
 })
