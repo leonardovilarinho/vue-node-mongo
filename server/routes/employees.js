@@ -5,7 +5,12 @@ module.exports = (app) => {
   app.post('/employees', async (req, res) => {
     try {
       const { body } = req
-      console.log(body)
+      const employees = await Employee.find({}).exec()
+      const total_participation = _.sumBy(employees, 'participation')
+
+      if (total_participation >= 100)
+        return res.status(400).send({ error: 'Já temos 100% de participação distribuída!' })
+
       const employee = await Employee.create(body)
 
       res.status(200).send({ error: false, employee })

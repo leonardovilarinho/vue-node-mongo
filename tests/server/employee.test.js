@@ -13,7 +13,7 @@ describe('Test employees features', () => {
     const employee = {lastname: 'Vilarinho', participation: 30}
     const { text, statusCode} = await request(app).post('/employees').send(employee)
 
-    expect(statusCode).toBe(401)
+    expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
     expect(data.error).toContain('nome')
@@ -24,7 +24,7 @@ describe('Test employees features', () => {
     const employee = {name: 'Leonardo', participation: 30}
     const { text, statusCode} = await request(app).post('/employees').send(employee)
 
-    expect(statusCode).toBe(401)
+    expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
     expect(data.error).toContain('sobrenome')
@@ -35,7 +35,7 @@ describe('Test employees features', () => {
     const employee = {name: 'Leonardo', lastname: 'Vilarinho'}
     const { text, statusCode} = await request(app).post('/employees').send(employee)
 
-    expect(statusCode).toBe(401)
+    expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
     expect(data.error).toContain('participação')
@@ -46,7 +46,7 @@ describe('Test employees features', () => {
     const employee = {name: 'L3onardo', lastname: 'Vilarinho', participation: 30}
     const { text, statusCode} = await request(app).post('/employees').send(employee)
 
-    expect(statusCode).toBe(401)
+    expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
     expect(data.error).toContain('nome')
@@ -57,7 +57,7 @@ describe('Test employees features', () => {
     const employee = { name: 'Leonardo', lastname: 'Vilar1nho', participation: 30 }
     const { text, statusCode } = await request(app).post('/employees').send(employee)
 
-    expect(statusCode).toBe(401)
+    expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
     expect(data.error).toContain('sobrenome')
@@ -68,7 +68,7 @@ describe('Test employees features', () => {
     const employee = { name: 'Leonardo', lastname: 'Vilarinho', participation: -10 }
     const { text, statusCode } = await request(app).post('/employees').send(employee)
 
-    expect(statusCode).toBe(401)
+    expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
     expect(data.error).toContain('participação')
@@ -79,7 +79,7 @@ describe('Test employees features', () => {
     const employee = { name: 'Leonardo', lastname: 'Vilarinho', participation: 101 }
     const { text, statusCode } = await request(app).post('/employees').send(employee)
 
-    expect(statusCode).toBe(401)
+    expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
     expect(data.error).toContain('participação')
@@ -98,7 +98,7 @@ describe('Test employees features', () => {
   })
 
   test('Create an employee', async () => {
-    const employee = { name: 'Leonardo', lastname: 'Vilarinho', participation: 20 }
+    const employee = { name: 'Leonardo', lastname: 'Vilarinho', participation: 100 }
     const { text, statusCode } = await request(app).post('/employees').send(employee)
 
     expect(statusCode).toBe(200)
@@ -106,6 +106,18 @@ describe('Test employees features', () => {
     const data = JSON.parse(text)
     expect(data.error).toBeFalsy()
   })
+
+  test('Create an employee with participation already full', async () => {
+    const employee = { name: 'Leonardo', lastname: 'Vilarinho', participation: 100 }
+    const { text, statusCode } = await request(app).post('/employees').send(employee)
+
+    expect(statusCode).toBe(400)
+
+    const data = JSON.parse(text)
+    expect(data.error).toContain('100%')
+    expect(data.error).toContain('distribuída')
+  })
+
 
   test('List employees with a employee', async () => {
     const { text, statusCode } = await request(app).get('/employees')
