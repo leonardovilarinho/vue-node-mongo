@@ -1,7 +1,7 @@
 <template>
   <Row class="register-header">
     <h1>Cadastre-se</h1>
-    <small>Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
     <EmployeesRegister />
   </Row>

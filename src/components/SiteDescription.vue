@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2>Dados</h2>
-    <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</small>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
   </section>
 </template>
 

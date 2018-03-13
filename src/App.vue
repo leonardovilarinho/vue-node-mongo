@@ -7,13 +7,13 @@
         <SiteDescription />
       </Row>
 
-      <Row class="divide">
-        <Col span="12">
-          <EmployeesTable />
+      <Row>
+        <Col :md="12" :sm="24">
+          <EmployeesTable :style="{margin: '20px'}" />
         </Col>
 
-        <Col span="12">
-          <EmployeesChart />
+        <Col :md="12" :sm="24">
+          <EmployeesChart :style="{padding: '30px'}" />
         </Col>
       </Row>
     </Content>
@@ -39,10 +39,4 @@ html, body
   padding: 0
   background-color: #F5F7F9
 
-.divide
-  text-align: center
-
-  > Col
-    padding: 10px 20px
-    text-align: center
 </style>

@@ -9,12 +9,15 @@
     </FormItem>
 
     <FormItem prop="participation">
-      <Input v-model="form.participation" size="large" type="text"
-        placeholder="Participação"/>
+      <InputNumber v-model="form.participation" size="large" :min="0" :max="100"/>
     </FormItem>
 
     <FormItem>
-      <Button @click="send()" size="large" type="ghost">Enviar</Button>
+      <Button @click="send()" :disabled="loading" size="large" type="ghost">Enviar</Button>
+    </FormItem>
+
+    <FormItem>
+      <Spin v-if="loading"></Spin>
     </FormItem>
   </Form>
 </template>
@@ -26,11 +29,12 @@ const { mapState, mapActions } = createNamespacedHelpers('Employees')
 export default {
   name: 'EmployeesRegister',
   data: () => ({
+    loading: false,
     form: { name: '', lastname: '', participation: 0 },
     rules: {
-      name: { required: true, message: 'Por favor, insira um nome.', trigger: 'blur' },
-      lastname: { required: true, message: 'Por favor, insira um sobrenome.', trigger: 'blur' },
-      participation: { required: true, message: 'Por favor, insira uma participação.', trigger: 'blur', min: 0, max: 100 },
+      name: { required: true, message: 'Por favor, insira um nome.' },
+      lastname: { required: true, message: 'Por favor, insira um sobrenome.' },
+      participation: { required: true, message: 'Por favor, insira uma participação.', type: 'number'},
     }
   }),
   methods: {
@@ -39,14 +43,17 @@ export default {
       this.$refs.form.validate(async (valid) => {
         if(!valid) return this.$Message.error('Ooops, houve um erro!')
 
+        this.loading = true
         try {
           await this.addEmployee(this.form)
           this.$Message.success('Funcionário criado com sucesso!')
+          this.$bus.$emit('updated-employee-list')
           this.form = { name: '', lastname: '', participation: 0 }
         } catch (error) {
           this.$Message.error(error.response.data.error)
         }
 
+        this.loading = false
       })
     }
   }

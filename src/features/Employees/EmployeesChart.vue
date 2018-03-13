@@ -5,23 +5,30 @@
 <script>
 import Chart from 'chart.js'
 import _ from 'lodash'
-import { createNamespacedHelpers } from 'vuex'
+import { generateArrayColors } from '@/utils'
 
+import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('Employees')
 
 export default {
   name: 'EmployeesChart',
+  data: () => ({
+    chart: null
+  }),
   async mounted() {
     await this.setList()
     this.loadChart()
+
+    this.$bus.$on('updated-employee-list', () => {
+      this.loadChart()
+    })
   },
   computed: {
     ...mapState({ originalList: 'list' }),
     employees() {
       const names = _.map(this.originalList, item => item.name)
       const participations = _.map(this.originalList, item => item.participation)
-      const colors = this.getRandomColor(names.length)
-      console.log(colors)
+      const colors = generateArrayColors(names.length)
 
       return { labels: names, datasets: [ { data: participations, backgroundColor: colors } ] }
     }
@@ -31,7 +38,7 @@ export default {
     loadChart() {
       const ctx = document.getElementById('employeers-pie').getContext('2d')
 
-      new Chart(ctx, {
+      this.chart = new Chart(ctx, {
         type: 'doughnut',
         data: this.employees,
         options: {
@@ -45,20 +52,6 @@ export default {
           }
         }
       })
-    },
-    getRandomColor(n) {
-      let result = []
-      const letters = '0123456789ABCDEF'.split('')
-      console.log(n)
-      for (let color = 0; color <= n; color++) {
-        let color = '#'
-        for (let i = 0; i < 6; i++ )
-          color += letters[Math.floor(Math.random() * 16)]
-
-        result.push(color)
-      }
-
-      return result
     }
   }
 }
