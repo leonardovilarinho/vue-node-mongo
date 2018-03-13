@@ -5,7 +5,6 @@
   "author": "Leonardo Vilarinho <leonardo-i@outlook.com>",
   "license": "MIT",
   "private": true,
-  "baseURL": "http://localhost:8080",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
@@ -13,7 +12,8 @@
     "server": "node server/index.js",
     "start-test-server": "webpack-dev-server",
     "test-server": "jest tests/server",
-    "test-e2e": "testcafe chrome tests --app 'npm run start-test-server' --app-init-delay 10000"
+    "test-e2e": "testcafe chrome tests/e2e --app 'npm run start-test-server' --app-init-delay 10000",
+    "test": "npm run test-e2e && npm run test-server"
   },
   "dependencies": {
     "axios": "^0.18.0",

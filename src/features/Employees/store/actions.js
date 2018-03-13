@@ -1,9 +1,11 @@
 import axios from 'axios'
 import _ from 'lodash'
 
+const baseURL = 'http://localhost:3000'
+
 export default {
   setList: async ({ commit }, obj) => {
-    const response = (await axios.get('http://localhost:3000/employees')).data.employees || []
+    const response = (await axios.get(`${baseURL}/employees`)).data.employees || []
 
     let id = 0
     const list = _.map(response, item => {
@@ -15,7 +17,7 @@ export default {
     commit('SET_LIST', { list })
   },
   addEmployee: async ({ commit }, employee) => {
-    const response = await axios.post('http://localhost:3000/employees', employee)
+    const response = await axios.post(`${baseURL}/employees`, employee)
 
     commit('ADD_EMPLOYEE', { employee })
   }
