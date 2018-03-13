@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <RegisterHeader />
+    <SiteHeader />
 
     <Content>
       <Row>
@@ -21,14 +21,15 @@
 </template>
 
 <script>
-import RegisterHeader from './components/RegisterHeader.vue'
-import SiteDescription from './components/SiteDescription.vue'
-import EmployeesTable from './components/EmployeesTable.vue'
-import EmployeesChart from './components/EmployeesChart.vue'
+import SiteHeader from '@/components/SiteHeader.vue'
+import SiteDescription from '@/components/SiteDescription.vue'
+
+import EmployeesTable from '@/features/Employees/EmployeesTable.vue'
+import EmployeesChart from '@/features/Employees/EmployeesChart.vue'
 
 export default {
   name: 'app',
-  components: { SiteDescription, RegisterHeader, EmployeesTable, EmployeesChart }
+  components: { SiteDescription, SiteHeader, EmployeesTable, EmployeesChart }
 }
 </script>
 
