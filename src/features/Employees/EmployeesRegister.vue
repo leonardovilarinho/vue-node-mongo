@@ -9,7 +9,7 @@
     </FormItem>
 
     <FormItem prop="participation">
-      <InputNumber v-model="form.participation" size="large" :min="0" :max="100"
+      <Input v-model="form.participation" size="large" type="text"
         placeholder="Participação"/>
     </FormItem>
 
@@ -20,6 +20,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('Employees')
+
 export default {
   name: 'EmployeesRegister',
   data: () => ({
@@ -27,13 +30,23 @@ export default {
     rules: {
       name: { required: true, message: 'Por favor, insira um nome.', trigger: 'blur' },
       lastname: { required: true, message: 'Por favor, insira um sobrenome.', trigger: 'blur' },
-      participation: { required: true, message: 'Por favor, insira uma participação.', trigger: 'blur' },
+      participation: { required: true, message: 'Por favor, insira uma participação.', trigger: 'blur', min: 0, max: 100 },
     }
   }),
   methods: {
+    ...mapActions(['addEmployee']),
     send() {
-      this.$refs.form.validate((valid) => {
+      this.$refs.form.validate(async (valid) => {
         if(!valid) return this.$Message.error('Ooops, houve um erro!')
+
+        try {
+          await this.addEmployee(this.form)
+          this.$Message.success('Funcionário criado com sucesso!')
+          this.form = { name: '', lastname: '', participation: 0 }
+        } catch (error) {
+          this.$Message.error(error.response.data.error)
+        }
+
       })
     }
   }

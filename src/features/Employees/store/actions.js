@@ -13,5 +13,10 @@ export default {
     })
 
     commit('SET_LIST', { list })
+  },
+  addEmployee: async ({ commit }, employee) => {
+    const response = await axios.post('http://localhost:3000/employees', employee)
+
+    commit('ADD_EMPLOYEE', { employee })
   }
 }
