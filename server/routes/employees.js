@@ -6,10 +6,10 @@ module.exports = (app) => {
     try {
       const { body } = req
       const employees = await Employee.find({}).exec()
-      const total_participation = _.sumBy(employees, 'participation')
+      const total_participation = _.sumBy(employees, 'participation') + body.participation
 
-      if (total_participation >= 100)
-        return res.status(400).send({ error: 'Já temos 100% de participação distribuída!' })
+      if (total_participation > 100)
+        return res.status(400).send({ error: 'Opps, você está estourando os 100% de participação!' })
 
       const employee = await Employee.create(body)
 

@@ -4,6 +4,16 @@
 
 ## Para executar
 
+Crie um arquivo `.env` na raiz, com o seguinte modelo, trocando as variáveis por seu localhost:
+
+```
+DB_PATH=mongodb://127.0.0.1:27017/desafio
+DB_TEST_PATH=mongodb://127.0.0.1:27017/desafio_test
+SERVER_PORT=3000
+```
+
+**PS**: Caso troque a porta do servidor, edite o arquivo `src/features/Employees/store/actions.js`, mudando a porta do servidor lá também.
+
 ``` bash
 # instalar dependências
 npm install

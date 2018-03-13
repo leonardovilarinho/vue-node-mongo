@@ -82,8 +82,8 @@ describe('Test employees features', () => {
     expect(statusCode).toBe(400)
 
     const data = JSON.parse(text)
-    expect(data.error).toContain('participação')
-    expect(data.error).toContain('0 e 100')
+    expect(data.error).toContain('estoura')
+    expect(data.error).toContain('100%')
   })
 
   test('List employees without employees', async () => {
@@ -115,7 +115,7 @@ describe('Test employees features', () => {
 
     const data = JSON.parse(text)
     expect(data.error).toContain('100%')
-    expect(data.error).toContain('distribuída')
+    expect(data.error).toContain('estoura')
   })
 
 
