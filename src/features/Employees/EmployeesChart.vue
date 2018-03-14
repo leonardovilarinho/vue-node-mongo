@@ -56,5 +56,3 @@ export default {
   }
 }
 </script>
-
-npm install chart.js --save

@@ -1,3 +1,4 @@
+require('babel-polyfill')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const request = require('supertest')

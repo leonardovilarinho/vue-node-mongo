@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "dev-server": "nodemon server/index.js",
     "server": "node server/index.js",
-    "test": "jest tests"
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -23,6 +23,20 @@
     "vue": "^2.5.11",
     "vuex": "^3.0.1"
   },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
@@ -30,8 +44,10 @@
   ],
   "devDependencies": {
     "@types/jest": "^22.2.0",
+    "@vue/test-utils": "^1.0.0-beta.12",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -48,6 +64,7 @@
     "sass-loader": "^6.0.6",
     "superagent": "^3.8.2",
     "supertest": "^3.0.0",
+    "vue-jest": "^2.1.1",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
